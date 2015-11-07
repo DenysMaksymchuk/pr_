@@ -1,0 +1,4 @@
+pytest==2.8.1
+pytest-allure-adaptor==1.6.7
+selenium==2.47.3
+virtualenv==13.1.2
