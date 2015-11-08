@@ -1,7 +1,6 @@
 import allure
 from allure.constants import AttachmentType
 import pytest
-import time
 
 __author__ = 'dmakstc'
 
@@ -15,8 +14,8 @@ class TestLogin:
                 current_page = self.model.get_welcome_page()
                 current_page.input_in_username_field('admin')
                 current_page.input_in_password_field('nimda')
-                current_page = current_page.submit_button_click()
-                assert current_page == self.model.persons_page
+                current_page.submit_button_click()
+                assert self.model.persons_page.is_current_page()
         except Exception:
             allure.attach('screenshot', self.model.driver.get_screenshot_as_png(), type=AttachmentType.PNG)
             raise
@@ -51,8 +50,8 @@ class TestLogin:
                 current_page.set_remind_me_checkbox_state(True)
                 current_page = current_page.login()
                 current_page = current_page.logout()
-                current_page = current_page.submit_button_click()
-                assert self.model.persons_page == current_page
+                current_page.submit_button_click()
+                assert self.model.persons_page.is_current_page()
         except Exception:
             allure.attach('screenshot', self.model.driver.get_screenshot_as_png(), type=AttachmentType.PNG)
             raise

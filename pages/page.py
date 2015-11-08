@@ -57,4 +57,5 @@ class Page:
             return False
 
     def __eq__(self, other):
+        # add something
         return isinstance(other, self.__class__)
