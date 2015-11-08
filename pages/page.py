@@ -57,4 +57,4 @@ class Page:
             return False
 
     def __eq__(self, other):
-        return isinstance(other, self.__class__) and self.get_unique() == other.get_unique()
+        return isinstance(other, self.__class__)
