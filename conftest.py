@@ -1,5 +1,6 @@
 import pytest
 from selenium import webdriver
+
 from site_model.model import Model
 
 __author__ = 'dmakstc'
@@ -21,16 +22,27 @@ def base_url(request):
 
 
 @pytest.fixture(scope="function")
-def load_model_auth_check(request, browser_type, base_url):
+def load_model(request, browser_type, base_url):
     """
     Fixture is used to perform all tests, use it in your tests like >>>  def test_method(app)
     It performs all tests in one browser, because of (scope="session")
     If it needs to perform tests in another browser,
     you can write in the console something like >>> py.test --browser "chrome"
-    :return: new Application with chosen or default params
+    :return: new Model with chosen or default params
     """
     if browser_type == "firefox":
         driver = webdriver.Firefox()
         driver.get(base_url)
     request.addfinalizer(driver.quit)
-    request.cls.model = Model(driver)
+    #request.cls.model = Model(driver)
+    return Model(driver)
+
+
+@pytest.fixture(scope="function")
+def load_model_auth_check(request, load_model):
+    request.cls.model = load_model
+
+@pytest.fixture(scope="function")
+def load_model_for_persons_page(request, load_model):
+    load_model.get_welcome_page().login()
+    request.cls.model = load_model

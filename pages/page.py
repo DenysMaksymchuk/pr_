@@ -38,9 +38,9 @@ class Page:
         """
         return
 
-    def get_current_page(self):
-        self.wait_until_page_generate()
-        return self
+    # def get_current_page(self):
+    #     self.wait_until_page_generate()
+    #     return self
 
     def is_alert_show(self):
         try:
@@ -49,7 +49,7 @@ class Page:
         except NoSuchElementException:
             return False
 
-    def is_current_page(self):
+    def is_this_page_displayed(self):
         try:
             self.get_unique()
             return True

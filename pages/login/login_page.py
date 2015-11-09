@@ -31,10 +31,6 @@ class LoginPage(Page):
         return self.driver.find_element(*self.SUBMIT_BUTTON)
 
     # page elem function
-    def get_current_page(self):
-        self.wait_until_page_generate()
-        if self.username_field and self.password_field and self.login_checkbox and self.submit_button:
-            return self
 
     def input_in_username_field(self, login):
         input_text_in_field(self.username_field, login, True)
@@ -44,8 +40,9 @@ class LoginPage(Page):
 
     def submit_button_click(self):
         self.submit_button.click()
+        self.model.current_page = self.model.persons_page
         self.wait_until_page_generate()
-        return self.model.persons_page
+        return self.model.get_current_page()
 
     def set_remind_me_checkbox_state(self, is_should_check):
         checkbox_set_state(self.login_checkbox, is_should_check)

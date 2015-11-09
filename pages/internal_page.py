@@ -1,5 +1,7 @@
 import abc
+
 from selenium.webdriver.common.by import By
+
 from pages.page import Page
 
 __author__ = 'dmakstc'
@@ -39,16 +41,29 @@ class InternalPage(Page):
 
     # page elem function
 
-    def click_on_user_dropdown_ref(self):
+    def user_dropdown_ref_click(self):
         self.user_dropdown.click()
+
+    def logout_button_click(self):
+        self.logout_button.click()
+        self.wait_until_page_generate()
+        self.model.current_page = self.model.login_page
+        return self.model.get_current_page()
+
+    def persons_page_link_click(self):
+        self.persons_page_link.click()
+        self.wait_until_page_generate()
+        self.model.current_page = self.model.persons_page
+        return self.model.get_current_page()
+
+    def enrollments_page_link_click(self):
+        self.enrollments_page_link.click()
+        self.wait_until_page_generate()
+        self.model.current_page = self.model.enrollments_page
+        return self.model.get_current_page()
 
     # general function
 
     def logout(self):
-        self.click_on_user_dropdown_ref()
-        self.logout_button.click()
-        self.wait_until_page_generate()
-        return self.model.login_page
-
-
-
+        self.user_dropdown_ref_click()
+        return self.logout_button_click()
